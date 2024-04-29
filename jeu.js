@@ -1,27 +1,37 @@
-//const { Graphics } = require("pixi.js");
- 
 var x = 0;
 var y = 0;
 var width = 30;
 var height = 30;
  
  
-const app  = new PIXI.Application({width: 800, height: 600, background: '#1099bb'});
- 
-// app.init({ width: 800, height: 600, background: '#1099bb'});
- 
- 
+const app  = new PIXI.Application({width: 900, height: 900, background: '#bfb'});
 document.getElementById('pixi-container').appendChild(app.view)
- 
 const texturePromise = PIXI.Assets.load('/img/grass.jpg');
- 
-const graphics = new Graphics();
-     
-graphics.rect(50, 50, 100, 100);
-graphics.fill(0xf0000);
- 
-app.stage.addChild(graphics);  
- 
- 
- 
-// new PIXI.Graphics(x, y, width, height);
+
+
+function styleSprite(){
+
+const texture = PIXI.Texture.from('un.png');
+sprite1 = new PIXI.Sprite(texture);
+
+sprite1.width = 300;
+sprite1.y = 100;
+sprite1.x = 100;
+app.stage.addChild(sprite1);
+
+}
+
+styleSprite();
+
+const text = new Text({
+    text: 'Hello Pixi!',
+    style: {
+       fontFamily: 'Arial',
+       fontSize: 24,
+    fill: 0xff1010,
+    align: 'center',
+  }
+ });
+
+
+
