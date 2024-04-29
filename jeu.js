@@ -19,6 +19,19 @@ sprite1.y = 100;
 sprite1.x = 100;
 app.stage.addChild(sprite1);
 
+const texture2 = PIXI.Texture.from('deux.png');
+sprite2 = new PIXI.Sprite(texture2);
+
+sprite2.width = 300;
+sprite2.y = 100;
+sprite2.x = 100;
+app.stage.addChild(sprite2);
+
+// const texture3 = PIXI.Texture.from('trois.png');
+// sprite3 = new PIXI.Sprite(texture3);
+
+
+
 }
 
 styleSprite();
