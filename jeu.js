@@ -113,7 +113,7 @@ function calculateOperations(operations, image1, image2){
          break;
       default:
          console.log("Opération non valide");
-         return;   
+         return 
    }
 
 }
