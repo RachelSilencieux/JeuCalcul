@@ -5,24 +5,46 @@ const deltaOffset = 5 ;
 vardeltaRotation = 0;
 const NAMESPACE ="urn..."
 
+function generatemember1 (element1) {
+    element1 = Math.floor(Math.random() * 10);
+    return element1;
+}
 
-document.getElementById("connectBtn").addEventListener('click',() => {
-    initializeApiOnly();
-});
-document.getElementById("upBtn").addEventListener('click',() => {
-    initializeApiOnly();
-});
+function generateMember1(indice) {
+    indice = Math.floor(Math.random() * 10);
+   const cartes = ["zero.png","un.png","deux.png","trois.png","quatre.png","cinq.png","six.png","sept.png","huit.png","neuf.png"];
+   membre1 = cartes [indice];
+   return membre1;
+}
+
+
+function generateSign (numSign,operation) {
+    numSign= Math.floor(Math.random() * 4);
+    const signes = ["+","-","*","/"];
+    signe = signes[numSign];
+    return operateur;
+}
+
+
+//document.getElementById("connectBtn").addEventListener('click',() => {
+ //   initializeApiOnly();
+//});
+
 document.getElementById("downBtn").addEventListener('click',() => {
     initializeApiOnly();
 });
 document.getElementById("righttBtn").addEventListener('click',() => {
-    initializeApiOnly();
+   generateMember2();
 });
+document.getElementById("upBtn").addEventListener('click',() => {
+  generateSign()  ;
+});
+
 document.getElementById("lefttBtn").addEventListener('click',() => {
-    initializeApiOnly();
+    generateMember1();
 });
 function sendCommand () {
-     let message = {deltaPosition:deltaPosition...}
+     let message = {"zero":0,"un":1,"deux":2,"trois":3,"quatre":4,"cinq":5,"six":6,"sept":8,"neuf":9}
      message= JSON
 }
 // Add the 'keydown' event listener to our document
