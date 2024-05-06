@@ -29,26 +29,12 @@ function generateImages(){
 
    sprite.position.set(100, 100);
    sprite.width = 300;
-   // spriteMaps.set(1, sprite1);
 
-   // const  sprite2 = new PIXI.Sprite(images[1]);
-   // spriteMaps.set(2, sprite2);
-
-   // const sprite3 = new PIXI.Sprite(images[2]);
-   // spriteMaps.set(3, sprite3);
-
-   // sprite1.position.set(100, 100);
-   // sprite2.position.set(600, 100);
-   // sprite3.position.set(1100, 100);
-   // sprite1.width = 300;
-   // sprite2.width = 300;
-   // sprite3.width = 300;
 
    app.stage.addChild(sprite);
 
    spriteMaps.set(randomNumber + 1, sprite);
-   // app.stage.addChild(sprite2);
-   // app.stage.addChild(sprite3);
+
 
   
 
@@ -60,52 +46,115 @@ function generateImages(){
 
 generateImages();
 
-function generateOperations(){
+function generateIMG(){
 
-   const operations = new PIXI.TextStyle({ 
+   const spriteMaps = new Map();
+
+   const images = [
+
+      PIXI.Texture.from('images/zero.png'),
+      PIXI.Texture.from('images/un.png'),
+      PIXI.Texture.from('images/deux.png'),
+      PIXI.Texture.from('images/trois.png'),
+      PIXI.Texture.from('images/quatre.png'),
+      PIXI.Texture.from('images/cinq.png'),
+      PIXI.Texture.from('images/six.png'),
+      PIXI.Texture.from('images/sept.png'),
+      PIXI.Texture.from('images/huit.png'),
+      PIXI.Texture.from('images/neuf.png')
+   ];
+
+   let randomNumber = Math.floor(Math.random() * images.length);
+   let randomImages = images[randomNumber];
+
+
+   const sprite = new PIXI.Sprite(randomImages);
+
+   sprite.position.set(600, 100);
+   sprite.width = 300;
+
+   app.stage.addChild(sprite);
+
+   spriteMaps.set(randomNumber + 1, sprite);
+
+   return randomImages;
+
+}
+
+generateIMG();
+
+function randomOperations(){
+
+   const spriteMaps = new Map();
+
+   const styles = new PIXI.TextStyle({ 
       fontFamily : 'Arial',
       fontSize: 48,
       fill : "black",
       align :"center"
    });
 
-   const section2 = new PIXI.Text('+', operations);
+   const operations = [
 
-   section2.x = 490;
-   section2.y = 300;
+      PIXI.Text('+', styles),
+      PIXI.Text('-', styles),
+      PIXI.Text('*', styles),
+      PIXI.Text('/', styles)
+   ];
 
-   const signeEgal = new PIXI.Text('=', operations);
+   let randomOp = Math.floor(Math.random() * operations.length);
+   let randomSigns = operations[randomOp];
 
-   signeEgal.x = 990;
-   signeEgal.y = 300;
+   operations.x = 490;
+   operations.y = 300;
 
-   app.stage.addChild(section2, signeEgal);
+   app.stage.addChild(operations);
+
+   spriteMaps.set(randomOp + 1, operations);
+   
+   return randomSigns;
 
 
 
 }
-generateOperations();
+
+randomOperations();
+
+function equalSign(){
+
+const signeEgal = new PIXI.Text('=', operations);
+
+signeEgal.x = 990;
+signeEgal.y = 300;
+
+app.stage.addChild(signeEgal);
+
+
+
+}
+equalSign();
 
 function RassamblanceImgOperation(){
 
    const img = generateImages();
+   const img2 = generateIMG();
    const operation = " ";
 
    let result;
 
    switch(operation){
       case '+':
-         result = img + img;
+         result = img + img2;
          break;
       case '-':
-         result = img - img;
+         result = img - img2;
          break;
       case '*':
-         result = img * img;
+         result = img * img2;
          break;
       case '/':
          if(img != 0) {
-            result = img / img;
+            result = img / img2;
          } else {
             alert('Erreur lors de la division!');
             return;
