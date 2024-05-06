@@ -1,7 +1,7 @@
-var x = 0;
-var y = 0;
-var width = 30;
-var height = 30;
+// var x = 0;
+// var y = 0;
+// var width = 30;
+// var height = 30;
  
  
 const app  = new PIXI.Application({width: 1500, height: 900, background: '#bfb'});
@@ -9,24 +9,24 @@ document.getElementById('pixi-container').appendChild(app.view)
 
 
 
-function generateImages(images){
+function generateImages(){
 
    const spriteMaps = new Map();
 
    const images = [
 
-      texture1 = PIXI.Texture.from('images/un.png'),
-      texture2 = PIXI.Texture.from('images/deux.png'),
-      texture3 = PIXI.Texture.from('images/trois.png')
+      PIXI.Texture.from('images/un.png'),
+      PIXI.Texture.from('images/deux.png'),
+      PIXI.Texture.from('images/trois.png')
    ];
 
-   const sprite1 = new PIXI.Sprite(texture1);
+   const sprite1 = new PIXI.Sprite(images[0]);
    spriteMaps.set(1, sprite1);
 
-   const  sprite2 = new PIXI.Sprite(texture2);
+   const  sprite2 = new PIXI.Sprite(images[1]);
    spriteMaps.set(2, sprite2);
 
-   const sprite3 = new PIXI.Sprite(texture3);
+   const sprite3 = new PIXI.Sprite(images[2]);
    spriteMaps.set(3, sprite3);
 
    sprite1.position.set(100, 100);
@@ -40,7 +40,7 @@ function generateImages(images){
    app.stage.addChild(sprite2);
    app.stage.addChild(sprite3);
 
-   let randomNumber = Math.floor(Math.random() * images.lenght);
+   let randomNumber = Math.floor(Math.random() * images.length);
    let randomImages = images[randomNumber];
 
    return randomImages;
@@ -60,24 +60,17 @@ function generateOperations(){
       align :"center"
    });
 
-   const section2 = new PIXI.Text(operations);
+   const section2 = new PIXI.Text('+', operations);
 
    section2.x = 490;
    section2.y = 300;
 
-   const signeEgal = new PIXI.TextStyle({
-      fontFamily : 'Arial',
-      fontSize: 48,
-      fill : "black",
-      align :"center"
-   })
-
-   const section4 = new PIXI.Text(signeEgal);
+   const signeEgal = new PIXI.Text('=', operations);
 
    signeEgal.x = 990;
    signeEgal.y = 300;
 
-   app.stage.addChild(section2, section4);
+   app.stage.addChild(section2, signeEgal);
 
 
 
@@ -87,7 +80,7 @@ generateOperations();
 function RassamblanceImgOperation(){
 
    const img = generateImages();
-   const operation = generateOperations();
+   const operation = " ";
 
    let result;
 
@@ -118,7 +111,10 @@ function RassamblanceImgOperation(){
    // AFFICHER LA RÉPONSE AVEC CONSOLE.LOG
 
 
+
 }
+
+RassamblanceImgOperation();
 
 
 
