@@ -148,7 +148,7 @@ function RassamblanceImgOperation(userInput) {
       alert('Désolé, la réponse est incorrecte.');
   }
 
-   // Réinitialisez les valeurs générées pour les prochains calculs
+  
    imgValue1 = undefined;
    imgValue2 = undefined;
    operationValue = undefined;
@@ -173,13 +173,12 @@ button.style.top = '350px';
 document.body.appendChild(input);
 document.body.appendChild(button);
 
-// Ajout d'un écouteur d'événement au bouton
+
 button.addEventListener('click', () => {
     const userInput = input.value;
     RassamblanceImgOperation(userInput);
 });
 
-// Génération des éléments initiaux
 generateImages();
 generateIMG();
 randomOperations();
