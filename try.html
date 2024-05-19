@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator Game</title>
+</head>
+<body>
+  <h1>Calculator Game</h1>
+  <p id="equation"></p>
+  <input type="number" id="guess" placeholder="Enter your guess">
+  <button onclick="checkGuess()">Submit</button>
+  <p id="result"></p>
+
+  <script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let operator = ['+', '-', '*', '/'];
+    let num1 = Math.floor(Math.random() * 10);
+    let num2 = Math.floor(Math.random() * 10);
+    let correctAnswer = eval(num1 + ' ' + operator[Math.floor(Math.random() * 4)] + ' ' + num2);
+    document.getElementById('equation').innerText = num1 + ' ' + operator[Math.floor(Math.random() * 4)] + ' ' + num2;
+
+    function checkGuess() {
+      let guess = document.getElementById('guess').value;
+      if (guess == correctAnswer) {
+        document.getElementById('result').innerText = 'Congratulations! You guessed correctly.';
+      } else {
+        document.getElementById('result').innerText = 'Sorry, that is not correct. Try again.';
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+
