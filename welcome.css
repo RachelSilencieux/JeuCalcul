@@ -1,0 +1,20 @@
+.container{
+    background-image: url("./images/numbers.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 700px;
+
+}
+
+.welcome-stn{
+    /* je veux mettre la section au centre */
+    background-color: rgb(172, 227, 196);
+    margin-left: 400px;
+    margin-top: 200px;
+    padding: 100px;
+    width: 500px;
+    border-radius: 50px;
+    
+
+    
+}
