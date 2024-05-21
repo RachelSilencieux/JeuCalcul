@@ -1,17 +1,18 @@
 const app = new PIXI.Application({ width: 1500, height: 900, backgroundColor: 0xbbffbb });
 document.getElementById('pixi-container').appendChild(app.view);
 
-let currentNum1, currentNum2, currentOp, currentResult;
-let currentSection = 0; // 0: num1, 1: operation, 2: num2
-let currentIndex = [0, 0, 0]; 
+let firstImage, secondImage, symbol, result, currentAnswer;
+let currentSection = 0; 
+let currentIndex = [0, 0, 0, 0]; // Les 4 sections
 
 // Une liste nommée section qui va permettre de structurer et de gérer les images et les opérations
 // selon leur longueur.
 
 const sections = [
-    { generator: generateImages, container: new PIXI.Container(), length: 10 },
+    { generator: generateImages, container: new PIXI.Container(), length: 10 }, // Utisation du 'Container', pour déterminer les images et les opérateurs comme des objets
     { generator: generateOperations, container: new PIXI.Container(), length: 4 },
-    { generator: generateImages, container: new PIXI.Container(), length: 10 }
+    { generator: generateImages, container: new PIXI.Container(), length: 10 },
+    
 ];
 
 function generateImages(index) {
@@ -32,6 +33,7 @@ function generateImages(index) {
 
     const sprite = new PIXI.Sprite(selectedImage.texture);
     sprite.width = 300;
+    sprite.height = 300;
     const value = selectedImage.value;
 
     return { sprite, value };
@@ -58,13 +60,17 @@ function generateOperations(index) {
 function generateEquation() {
 
 
-    currentNum1 = generateImages(currentIndex[0]);
-    currentOp = generateOperations(currentIndex[1]);
-    currentNum2 = generateImages(currentIndex[2]);
+    firstImage = generateImages(currentIndex[0]);
+    symbol = generateOperations(currentIndex[1]);
+    secondImage = generateImages(currentIndex[2]);
+    
 
-    sections[0].container.addChild(currentNum1.sprite);
-    sections[1].container.addChild(currentOp.sprite);
-    sections[2].container.addChild(currentNum2.sprite);
+    sections[0].container.addChild(firstImage.sprite);
+    sections[1].container.addChild(symbol.sprite);
+    sections[2].container.addChild(secondImage.sprite);
+
+   // Définir la position des objets
+    
 
     sections[0].container.x = 100;
     sections[0].container.y = 100;
@@ -79,6 +85,7 @@ function generateEquation() {
     app.stage.addChild(sections[0].container);
     app.stage.addChild(sections[1].container);
     app.stage.addChild(sections[2].container);
+    
 
   
     const equalSign = new PIXI.Text('=', { fontSize: 40, fill: 0x000000 });
@@ -91,21 +98,21 @@ function generateEquation() {
 }
 
 function calculateResult() {
-    switch (currentOp.value) {
+    switch (symbol.value) {
         case '+':
-            currentResult = currentNum1.value + currentNum2.value;
+            result = firstImage.value + secondImage.value;
             break;
         case '-':
-            currentResult = currentNum1.value - currentNum2.value;
+            result = firstImage.value - secondImage.value;
             break;
         case '*':
-            currentResult = currentNum1.value * currentNum2.value;
+            result = firstImage.value * secondImage.value;
             break;
         case '/':
-            if (currentNum2.value !== 0) {
-                currentResult = round(currentNum1.value / currentNum2.value, 2);
+            if (secondImage.value !== 0) {
+                result = firstImage.value / secondImage.value;
             } else {
-                alert('Erreur lors de la division');
+                alert('Impossible!');
                 return;
             }
        
@@ -113,84 +120,108 @@ function calculateResult() {
 }
 
 function checkAnswer(userInput) {
-    if (Number(userInput) === currentResult) {
+   // Convertir la saisie d'utilisateur en nombre
+    if (Number(userInput) === result) {
         alert('Bravo! La réponse est correcte!');
     } else {
         alert('Désolé! La réponse est incorrecte!');
     }
+
+
 }
 
+function chooseAnswer(){
+
 const input = document.createElement('input');
-input.setAttribute('type', 'text');
+input.setAttribute('type', 'number');
 input.setAttribute('id', 'reponse');
 input.style.position = 'absolute';
 input.style.left = '1100px';
 input.style.top = '300px';
 
-const button = document.createElement('button');
-button.setAttribute('id', 'valide');
-button.textContent = 'Valider';
-button.style.position = 'absolute';
-button.style.left = '1100px';
-button.style.top = '350px';
 
-document.body.appendChild(input);
-document.body.appendChild(button);
 
-button.addEventListener('click', () => {
-    const userInput = input.value;
-    checkAnswer(userInput);
+
+
+input.addEventListener('keydown', (event) => {
+
+   if (event.key === 'Enter') {
+      const userInput = input.value;
+      if (userInput !== '') {
+          checkAnswer(userInput);
+      } else {
+          alert('Veuillez saisir une réponse!');
+      }
+   }
 });
 
-generateEquation();
 
+document.body.appendChild(input);
+input.focus(); // Le input va s'afficher dès qu'on click sur une touche
+               // Il S'apprête à recevoir une saisie de l'utilisateur
+
+
+
+}
 // Utilisateur des touches du clavier selon l'index et la section
 
+//https://developer.mozilla.org/fr/docs/Web/API/KeyboardEvent/key
 
 document.addEventListener('keydown', (event) => {
    switch (event.key) {
        case 'ArrowUp':
            upKey(); 
-           updateSection(); // Mettez à jour la section après avoir appuyé sur la touche
+           miseAJour(); // Mettez à jour la section après avoir appuyé sur la touche
            break;
        case 'ArrowDown':
            downKey(); 
-           updateSection();
+           miseAJour();
            break;
        case 'ArrowLeft':
            leftKey(); 
-           updateSection();
+           miseAJour();
            break;
        case 'ArrowRight':
            rightKey(); 
-           updateSection();
+           miseAJour();
            break;
    }
 });
 
-function updateSection() {
-    const currentGenerator = sections[currentSection].generator;
-    const currentContainer = sections[currentSection].container;
-
-    const newElement = currentGenerator(currentIndex[currentSection]);
-
+function miseAJour() {
  
-    currentContainer.removeChildren(); // Empêcher aux images et aux opérateurs de s'empiller
-    currentContainer.addChild(newElement.sprite); 
+      const currentGenerator = sections[currentSection].generator;
+      const currentContainer = sections[currentSection].container;
+      const updateSection = currentGenerator(currentIndex[currentSection]);
 
-   // Logique pour mettre à jour les images et les opérations qu'on a choisis
-    if (currentSection === 0) {
-        currentNum1 = newElement;
-    } else if (currentSection === 1) {
-        currentOp = newElement;
-    } else if (currentSection === 2) {
-        currentNum2 = newElement;
-    }
+       currentContainer.removeChildren(); // Pour éviter la surcharge des sprites
+       currentContainer.addChild(updateSection.sprite);
 
-    // On appelle la fonction qui enregistre les calculs pour mettre à jour les opérations
+       // Une logique qui va mettre à jour les images et les opérations
 
-    calculateResult();
+       if (currentSection === 0) {
+           firstImage = updateSection;
+       } else if (currentSection === 1) {
+           symbol = updateSection;
+       } else if (currentSection === 2) {
+           secondImage = updateSection;
+       } else if (currentSection === 3){
+         currentAnswer = updateSection;
+         
+       }
 
+       // Appel des fonctions dans la fonction qui seront affectées par 
+       // la modification
+
+       calculateResult();
+       chooseAnswer();
+    
   
 }
+
+// On appelle cette fonction à la toute fin, car il est le coeur de l'application
+// au complet.
+
+generateEquation();
+
 

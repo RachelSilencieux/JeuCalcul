@@ -3,7 +3,7 @@ var currentSession;
 const namespace ="urn..."
 
 document.getElementById("connectbtn").addEventListener('click', () => {
-    initializaApiOnly();
+    initializeApiOnly();
 });
 
 document.getElementById('upBtn').addEventListener('click', () => {
@@ -31,11 +31,11 @@ function downKey() {
 }
 
 function leftKey() {
-    currentSection = (currentSection - 1 + 3) % 3;
+    currentSection = (currentSection - 1 + 6) % 6;
 }
 
 function rightKey() {
-    currentSection = (currentSection + 1) % 3;
+    currentSection = (currentSection + 1) % 6;
 }
 
 function onInitSuccess(){
@@ -50,13 +50,15 @@ function sessionListener(newSession){
     currentSession = newSession;
 }
 
-function initializaApiOnly(){
+function initializeApiOnly(){
     const sessionRequest = new chrome.cast.sessionRequest(appID);
     const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiversListener);
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
 
 // Créer un objet JSON
+
+function sendMessage(){
 
 let message = {
     "zero": 0,
@@ -72,6 +74,9 @@ let message = {
 };
 
 message = JSON.stringify(message);
+
+}
+
 
 currentSession.sendMessage(namespace, message);
 
