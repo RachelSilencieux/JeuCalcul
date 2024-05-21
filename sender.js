@@ -1,6 +1,6 @@
 const appID = '252FAB2A';
 var currentSession;
-const namespace ="urn..."
+const CHANNEL = 'urn:x-cast:testChannel';
 
 document.getElementById("connectbtn").addEventListener('click', () => {
     initializeApiOnly();
@@ -56,6 +56,41 @@ function initializeApiOnly(){
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
 
+function receiversListener(){
+    console.log('Receivers updated: ' + JSON.stringify(receivers));
+}
+
+
+
+
+function handleMessageFromSender(namespace, listener){
+    chrome.runtime.onMessage.addListener((message) => {
+        if (message.namespace === namespace) {
+            listener(message);
+            }
+        });
+
+        return;
+    
+}
+
+function sendMessage(){
+    if(currentSession){
+        const message = {namespace: 'sender',data: 'message from receiver'};
+        currentSession.sendMessage(message);
+    } else {
+        console.log('No session');
+    }
+    
+    return;
+}
+
+
+
+function CastReceiverOptions(){
+    this.appId = appID;
+}
+
 // Créer un objet JSON
 
 function sendMessage(){
@@ -78,6 +113,10 @@ message = JSON.stringify(message);
 }
 
 
-currentSession.sendMessage(namespace, message);
+currentSession.sendMessage(CHANNEL, message);
+
+
+context.addCustomMessageListener(CHANNEL, handleMessageFromSender);
+const options = new cast.framework.CastReceiverOptions();
 
 
