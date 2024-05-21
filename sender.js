@@ -77,11 +77,12 @@ function handleMessageFromSender(namespace, listener){
 function sendMessage(){
     if(currentSession){
         const message = {namespace: 'sender',data: 'message from receiver'};
+        message = JSON.stringify(message);
         currentSession.sendMessage(message);
     } else {
         console.log('No session');
     }
-    
+
     return;
 }
 
@@ -108,7 +109,7 @@ let message = {
     "neuf": 9
 };
 
-message = JSON.stringify(message);
+
 
 }
 
