@@ -8,10 +8,20 @@ let currentIndex = [0, 0, 0, 0]; // Les 4 sections
 // Une liste nommée section qui va permettre de structurer et de gérer les images et les opérations
 // selon leur longueur.
 
+
+
 const sections = [
-    { generator: generateImages, container: new PIXI.Container(), length: 10 }, // Utisation du 'Container', pour déterminer les images et les opérateurs comme des objets
-    { generator: generateOperations, container: new PIXI.Container(), length: 4 },
-    { generator: generateImages, container: new PIXI.Container(), length: 10 },
+    { position: generateImages, 
+      container: new PIXI.Container(), 
+      length: 10 
+   }, // Utisation du 'Container', pour déterminer les images et les opérateurs comme des objets
+    { position: generateOperations, 
+      container: new PIXI.Container(), 
+      length: 4 
+   },
+    { position: generateImages, 
+      container: new PIXI.Container(), 
+      length: 10 }
     
 ];
 
@@ -29,12 +39,13 @@ function generateImages(index) {
         { texture: PIXI.Texture.from('images/neuf.png'), value: 9 }
     ];
 
-    const selectedImage = images[index];
+    // les images qui prend une liste d'index
+    const imagePointe = images[index];
 
-    const sprite = new PIXI.Sprite(selectedImage.texture);
+    const sprite = new PIXI.Sprite(imagePointe.texture);
     sprite.width = 300;
     sprite.height = 300;
-    const value = selectedImage.value;
+    const value = imagePointe.value;
 
     return { sprite, value };
 }
@@ -165,7 +176,7 @@ input.focus(); // Le input va s'afficher dès qu'on click sur une touche
 }
 // Utilisateur des touches du clavier selon l'index et la section
 
-//https://developer.mozilla.org/fr/docs/Web/API/KeyboardEvent/key
+
 
 document.addEventListener('keydown', (event) => {
    switch (event.key) {
@@ -190,7 +201,7 @@ document.addEventListener('keydown', (event) => {
 
 function miseAJour() {
  
-      const currentGenerator = sections[currentSection].generator;
+      const currentGenerator = sections[currentSection].position;
       const currentContainer = sections[currentSection].container;
       const updateSection = currentGenerator(currentIndex[currentSection]);
 
@@ -223,5 +234,10 @@ function miseAJour() {
 // au complet.
 
 generateEquation();
+
+//sites utilisés pour nous aider dans notre code:
+//https://developer.mozilla.org/fr/docs/Web/API/KeyboardEvent/key
+//https://pixijs.download/v4.7.3/docs/PIXI.Container.html
+//https://pixijs.download/v4.7.3/docs/PIXI.Container.html#removeChildren
 
 

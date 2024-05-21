@@ -1,4 +1,4 @@
-const appID = 'TODO';
+const appID = '252FAB2A';
 var currentSession;
 const namespace ="urn..."
 
