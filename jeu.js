@@ -5,6 +5,9 @@ let currentNum1, currentNum2, currentOp, currentResult;
 let currentSection = 0; // 0: num1, 1: operation, 2: num2
 let currentIndex = [0, 0, 0]; 
 
+// Une liste nommée section qui va permettre de structurer et de gérer les images et les opérations
+// selon leur longueur.
+
 const sections = [
     { generator: generateImages, container: new PIXI.Container(), length: 10 },
     { generator: generateOperations, container: new PIXI.Container(), length: 4 },
