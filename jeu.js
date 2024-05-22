@@ -1,6 +1,9 @@
 const app = new PIXI.Application({ width: 1500, height: 900, backgroundColor: 0xbbffbb });
 document.getElementById('pixi-container').appendChild(app.view);
 
+alert('Vous devez avoir 3 bonnes réponses pour réussir.\nAprès 1 mauvaise réponse, vous échouez :(');
+alert('Bonne chance! :)');
+
 let firstImage, secondImage, symbol, result, currentAnswer;
 let currentSection = 0; 
 let currentIndex = [0, 0, 0, 0]; // Les 4 sections
@@ -130,16 +133,41 @@ function calculateResult() {
     }
 }
 
+let score = 0;
+let correctAnswer = 0;
+let maxAnswer = 3;
+
+
 function checkAnswer(userInput) {
    // Convertir la saisie d'utilisateur en nombre
     if (Number(userInput) === result) {
         alert('Bravo! La réponse est correcte!');
+        score++
+        correctAnswer++;
     } else {
         alert('Désolé! La réponse est incorrecte!');
+        score = 0;
+        correctAnswer = 0;
+        alert('Désole. Vous avez échoué. :(')
     }
+
+    if(correctAnswer >= 3){
+        alert('Félicitation! Vous avez réussis le jeu! :D')
+        correctAnswer = 0;
+    } 
+
+
+
+
+        
+    
+    generateEquation();
+
+    
 
 
 }
+
 
 function chooseAnswer(){
 
@@ -226,7 +254,7 @@ function miseAJour() {
 
        calculateResult();
        chooseAnswer();
-    
+       
   
 }
 
@@ -235,9 +263,12 @@ function miseAJour() {
 
 generateEquation();
 
+
+
 //sites utilisés pour nous aider dans notre code:
 //https://developer.mozilla.org/fr/docs/Web/API/KeyboardEvent/key
 //https://pixijs.download/v4.7.3/docs/PIXI.Container.html
 //https://pixijs.download/v4.7.3/docs/PIXI.Container.html#removeChildren
+//https://yard.onl/sitelycee/cours/js/_Js.html?Creretinsrerdeslments.html
 
 
