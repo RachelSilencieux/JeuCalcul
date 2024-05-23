@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/eba5d366fa.js" crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="./jeu.css">
+  <link rel="stylesheet" href="./sender.css">
   <title>Jeu Logiques</title>
  
  
@@ -14,10 +14,14 @@
 <body>
   <div id="pixi-container">
 
+    <h1 id="msg-echec"> </h1>
+    <h1 id="msg-over"> </h1>
+    <h1 id="msg-bonne"></h1>
+
     <section id="chromeConnect">
       <button class="cast"><i class="fa-brands fa-chromecast" id="connectbtn"></i></button>
     </section>
-
+    
     <section id="buttons-1">
       <p class="text">Navigate by using the keyboard   <i class="fa-solid fa-keyboard"></i></p>
       <br/>
@@ -27,7 +31,7 @@
       <i class="fa-solid fa-caret-down" id="downBtn"></i>
     </section>
 
-    <h1 id="score">Nombre de points accumulé: </h1>
+    <h1 id="score">Nombre de points accumulé: 0</h1>
   </div>
 
  
@@ -35,7 +39,7 @@
   <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.x/dist/pixi.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@pixi/tilemap@latest/dist/pixi-tilemap.umd.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <script src="./jeu.js"></script>
-  <script src="./sender.js"></script>
+  <script type="module" src="./jeu.js"></script>
+  <script src="./sender.js" type="module"></script>
 </body>
 </html>
