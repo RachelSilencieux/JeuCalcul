@@ -3,7 +3,7 @@ document.getElementById("pixi-container").appendChild(app.view);
 
 let firstImage, secondImage, operation, resultEquation, playerAnswer;
 let texturePosition = 0;
-let textureSection = [0, 0, 0, 0]; // Les 4 sections
+let textureSection = [0, 0, 0, 0];
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 
