@@ -155,7 +155,6 @@ let maxAnswer = 10;
 
 let badAnswer = "Mauvaise Réponse!";
 let gameOver = "Temps écoulé! Merci d'avoir participé au jeu! :D";
-let timer = 60000;
 
 function checkAnswer(userInput) {
   
@@ -171,13 +170,23 @@ function checkAnswer(userInput) {
 
   document.getElementById("score").innerText = "Nombre de points accumulé: " + score;
 
- 
-  setTimeout( function() {
-    document.getElementById('msg-over').innerText = gameOver;
-    
-  }, timer)
-
+  
+  
+  minuterie();
   texturePlacement();
+}
+
+let secondes = 60;
+let para = document.getElementById("timer");
+let chrono = window.setInterval(minuterie, 1000);
+
+function minuterie(){
+    secondes--;
+    para.innerHTML = secondes;
+    if (secondes == 0){
+        window.clearTimeout(chrono);
+        document.getElementById("msg-over").innerText = gameOver;
+    }
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------

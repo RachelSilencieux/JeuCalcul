@@ -18,3 +18,4 @@ https://pixijs.download/v4.7.3/docs/PIXI.Container.html
 https://pixijs.download/v4.7.3/docs/PIXI.Container.html#removeChildren
 https://yard.onl/sitelycee/cours/js/_Js.html?Creretinsrerdeslments.html
 https://labinfo.clg.qc.ca/javascript_/bases/afficher-texte-document-getelementbyid.php
+https://labinfo.clg.qc.ca/javascript_/divers/chronometre-timer.php
