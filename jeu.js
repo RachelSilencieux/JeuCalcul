@@ -208,7 +208,7 @@ function updateEquation() {
       const addGenerateElem = objectsListSection.container;
       const updateSection = generateElement(textureSection[texturePosition]);
   
-      addGenerateElem.removeChildren(); 
+      addGenerateElem.removeChildren(); //Empêcher les textures de s'empiller
       addGenerateElem.addChild(updateSection.sprite);
   
       if (texturePosition === 0) {
