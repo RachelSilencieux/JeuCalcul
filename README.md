@@ -9,7 +9,7 @@ Le but du jeu est d'accumuler le plus de points possible en 1 minutes!
 Si le joueur a la bonne réponse, le point va s'ajouter dans la section "Nombre de points accumulés" en haut à gauche.
 Si le joueur a une mauvaise réponse, un message va être affiché "Mauvaise réponse" et il recommencera de 0 (également la minuterie).
 
-Pssttt! La minuterie commence seulement quand vous cliquez sur une touche.
+Pssttt! La minuterie commence seulement quand vous envoyez votre première réponse.
 
 Librairie utilisée: 
 
