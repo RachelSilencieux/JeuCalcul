@@ -202,10 +202,10 @@ function minuterie(){
 
 
 function updateEquation() {
-    const elementsSection = sections[texturePosition];
-    if (elementsSection && elementsSection.section) {
-      const generateElement = elementsSection.section;
-      const addGenerateElem = elementsSection.container;
+    const objectsListSection = sections[texturePosition];
+    if (objectsListSection && objectsListSection.section) {
+      const generateElement = objectsListSection.section;
+      const addGenerateElem = objectsListSection.container;
       const updateSection = generateElement(textureSection[texturePosition]);
   
       addGenerateElem.removeChildren(); 
