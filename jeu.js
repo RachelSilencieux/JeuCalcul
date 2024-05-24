@@ -5,6 +5,7 @@ let firstImage, secondImage, operation, resultEquation, playerAnswer;
 let texturePosition = 0;
 let textureSection = [0, 0, 0, 0];
 
+console.time("time")
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 
 function generateImages(index) {
@@ -156,6 +157,14 @@ let maxAnswer = 10;
 let badAnswer = "Mauvaise Réponse!";
 let gameOver = "Temps écoulé! Merci d'avoir participé au jeu! :D";
 
+let chrono = null;
+
+function startTimer(){
+    if(!chrono){
+        chrono = setInterval(minuterie, 1000);
+    }
+}
+
 function checkAnswer(userInput) {
   
   if (Number(userInput) === resultEquation) {
@@ -170,21 +179,21 @@ function checkAnswer(userInput) {
 
   document.getElementById("score").innerText = "Nombre de points accumulé: " + score;
 
+  startTimer();
   
-  
-  minuterie();
+
   texturePlacement();
 }
 
 let secondes = 60;
 let para = document.getElementById("timer");
-let chrono = window.setInterval(minuterie, 1000);
+
 
 function minuterie(){
     secondes--;
     para.innerHTML = secondes;
     if (secondes == 0){
-        window.clearTimeout(chrono);
+        clearInterval(chrono);
         document.getElementById("msg-over").innerText = gameOver;
     }
 }
@@ -193,28 +202,30 @@ function minuterie(){
 
 
 function updateEquation() {
-  const generateElement = sections[texturePosition].section;
-  const addGenerateElem = sections[texturePosition].container;
-  const updateSection = generateElement(textureSection[texturePosition]);
-
-  addGenerateElem.removeChildren(); 
-  addGenerateElem.addChild(updateSection.sprite);
-
- 
-
-  if (texturePosition === 0) {
-    firstImage = updateSection;
-  } else if (texturePosition === 1) {
-    operation = updateSection;
-  } else if (texturePosition === 2) {
-    secondImage = updateSection;
-  } else if (texturePosition === 3) {
-    playerAnswer = updateSection;
+    const elementsSection = sections[texturePosition];
+    if (elementsSection && elementsSection.section) {
+      const generateElement = elementsSection.section;
+      const addGenerateElem = elementsSection.container;
+      const updateSection = generateElement(textureSection[texturePosition]);
+  
+      addGenerateElem.removeChildren(); 
+      addGenerateElem.addChild(updateSection.sprite);
+  
+      if (texturePosition === 0) {
+        firstImage = updateSection;
+      } else if (texturePosition === 1) {
+        operation = updateSection;
+      } else if (texturePosition === 2) {
+        secondImage = updateSection;
+      } else if (texturePosition === 3) {
+        playerAnswer = updateSection;
+      }
+  
+      calculateResult();
+      chooseAnswer();
+    }
   }
-
-  calculateResult();
-  chooseAnswer();
-}
+  
 
 texturePlacement();
 
@@ -226,11 +237,15 @@ document.addEventListener("keydown", (event) => {
 
     switch (event.key) {
         case "ArrowUp":
-          textureSection[texturePosition] = (textureSection[texturePosition] - 1 + sections[texturePosition].length) % sections[texturePosition].length;
+          if (sections[texturePosition]) {
+            textureSection[texturePosition] = (textureSection[texturePosition] - 1 + sections[texturePosition].length) % sections[texturePosition].length;
+          }
           updateEquation(); // Mettez à jour la section après avoir appuyé sur la touche
           break;
         case "ArrowDown":
-          textureSection[texturePosition] = (textureSection[texturePosition] + 1) % sections[texturePosition].length;
+          if (sections[texturePosition]) {
+            textureSection[texturePosition] = (textureSection[texturePosition] + 1) % sections[texturePosition].length;
+          }
           updateEquation();
           break;
         case "ArrowLeft":
@@ -241,6 +256,8 @@ document.addEventListener("keydown", (event) => {
           texturePosition = (texturePosition + 1) % 6;
           updateEquation();
           break;
-      }
+    }
 
 });
+
+console.timeEnd("time");

@@ -2,6 +2,7 @@ const appID = "252FAB2A";
 var currentSession;
 const CHANNEL = "urn:x-cast:testChannel";
 
+console.time("logs: ");
 document.getElementById("connectbtn").addEventListener("click", () => {
   initializeApiOnly();
 });
@@ -61,7 +62,7 @@ function sendMessage(){
     }
 }
 
-
+console.timeEnd("logs: ");
 
 
 
