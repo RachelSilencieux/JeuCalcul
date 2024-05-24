@@ -5,7 +5,7 @@ let firstImage, secondImage, operation, resultEquation, playerAnswer;
 let texturePosition = 0;
 let textureSection = [0, 0, 0, 0];
 
-console.time("time")
+
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 
 function generateImages(index) {
@@ -22,7 +22,7 @@ function generateImages(index) {
     { texture: PIXI.Texture.from("images/neuf.png"), value: 9 }
   ];
 
-  // les images qui prend une liste d'index
+
   const valeurImage = images[index];
 
   const sprite = new PIXI.Sprite(valeurImage.texture);
@@ -232,6 +232,8 @@ texturePlacement();
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Gestion des touches du clavier
+
+console.time("time")
 
 document.addEventListener("keydown", (event) => {
 
